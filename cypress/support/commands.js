@@ -2,15 +2,14 @@ Cypress.Commands.add('login', () => {
   cy.session('authSession', () => {
     cy.visit('/users/sign_in');
 
-    cy.get('input[name="user[email]"]', { timeout: 10000 }).should('be.visible').type(Cypress.env('EMAIL'));
-    cy.get('input[name="user[password]"]', { timeout: 10000 }).should('be.visible').type(Cypress.env('PASSWORD'));
+    cy.get('input[name="user[email]"]').should('be.visible').type(Cypress.env('EMAIL'));
+    cy.get('input[name="user[password]"]').should('be.visible').type(Cypress.env('PASSWORD'));
     cy.get('input[name="commit"]').should('be.visible').click();
 
-    cy.contains('Campaigns', { timeout: 10000 }).should('be.visible');
+    cy.contains('Campaigns').should('be.visible');
   });
 });
 
-// Excel Reporter Commands
 Cypress.Commands.add('initExcelReporter', () => {
   cy.task('initExcelReporter');
 });

@@ -1,33 +1,31 @@
 export const campaignsPage = {
   navigateToList() {
     cy.visit('/campaigns');
-    cy.contains('Campaigns', { timeout: 10000 }).should('be.visible');
+    cy.contains('Campaigns').should('be.visible');
   },
 
   clickAddNewCampaign() {
-    cy.contains('Add New Campaign', { timeout: 10000 })
-      .should('be.visible')
-      .click();
+    cy.contains('Add New Campaign').should('be.visible').click();
   },
 
   fillForm(campaignData) {
-    cy.get('input[name="campaign[name]"]', { timeout: 10000 })
+    cy.get('input[name="campaign[name]"]')
       .should('be.visible')
       .clear()
       .type(campaignData.name);
 
-    cy.get('input[name="campaign[description]"]', { timeout: 10000 })
+    cy.get('input[name="campaign[description]"]')
       .should('be.visible')
       .clear()
       .type(campaignData.description);
 
     if (campaignData.type) {
       if (campaignData.type === 'one_time') {
-        cy.get('input[type="radio"][value="one_time"]', { timeout: 10000 })
+        cy.get('input[type="radio"][value="one_time"]')
           .should('be.visible')
           .check();
       } else if (campaignData.type === 'repeatable') {
-        cy.get('input[type="radio"][value="repeatable"]', { timeout: 10000 })
+        cy.get('input[type="radio"][value="repeatable"]')
           .should('be.visible')
           .check();
       }
@@ -35,19 +33,19 @@ export const campaignsPage = {
   },
 
   submitCreate() {
-    cy.get('input[type="submit"][value="Create Campaign"]', { timeout: 10000 })
+    cy.get('input[type="submit"][value="Create Campaign"]')
       .should('be.visible')
       .click();
   },
 
   submitUpdate() {
-    cy.get('input[type="submit"][value="Update Campaign"]', { timeout: 10000 })
+    cy.get('input[type="submit"][value="Update Campaign"]')
       .should('be.visible')
       .click();
   },
 
   clickEditFirstCampaign() {
-    cy.get('table tbody tr:first-child', { timeout: 10000 })
+    cy.get('table tbody tr:first-child')
       .should('be.visible')
       .within(() => {
         cy.get('a').contains('Edit').click();
@@ -55,11 +53,11 @@ export const campaignsPage = {
   },
 
   verifyCampaignExists(campaignName) {
-    cy.contains(campaignName, { timeout: 10000 }).should('be.visible');
+    cy.contains(campaignName).should('be.visible');
   },
 
   deleteFirstCampaign() {
-    cy.get('table tbody tr:first-child', { timeout: 10000 })
+    cy.get('table tbody tr:first-child')
       .should('be.visible')
       .within(() => {
         cy.contains('Delete').click();
@@ -92,7 +90,7 @@ export const campaignsPage = {
   },
 
   clickEditCampaignByName(campaignName) {
-    cy.get('table tbody tr', { timeout: 10000 }).each(($row) => {
+    cy.get('table tbody tr').each(($row) => {
       cy.wrap($row).within(() => {
         cy.get('td').first().then(($nameCell) => {
           if ($nameCell.text().trim() === campaignName) {
@@ -120,6 +118,6 @@ export const campaignsPage = {
   },
 
   verifyUpdateMessage() {
-    cy.contains('Campaign was successfully updated', { timeout: 3000 }).should('be.visible');
+    cy.contains('Campaign was successfully updated').should('be.visible');
   },
 };

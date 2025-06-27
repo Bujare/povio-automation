@@ -2,7 +2,7 @@ export const healthCheckPage = {
   performHealthCheck() {
     cy.visit('/');
     cy.url().should('include', 'povio-at.herokuapp.com');
-    cy.get('body', { timeout: 15000 }).should('be.visible');
+    cy.get('body').should('be.visible');
   },
 
   verifyAppIsRunning() {
@@ -27,13 +27,13 @@ export const healthCheckPage = {
   checkLoginPage() {
     cy.visit('/users/sign_in');
     cy.get('body').should('be.visible');
-    cy.contains('Sign in', { timeout: 10000 }).should('be.visible');
+    cy.contains('Sign in').should('be.visible');
   },
 
   checkRegistrationPage() {
     cy.visit('/users/sign_up');
     cy.get('body').should('be.visible');
-    cy.contains('Sign up', { timeout: 10000 }).should('be.visible');
+    cy.contains('Sign up').should('be.visible');
   },
 
   checkForConsoleErrors() {

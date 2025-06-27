@@ -25,7 +25,7 @@ describe('Campaigns', () => {
     const campaignData = {
       name: `Test Campaign ${Date.now()}`,
       description: 'Test campaign description',
-      type: 'repeatable',
+      type: 'repeatable'
     };
 
     campaignsPage.createNewCampaign(campaignData);
@@ -42,10 +42,9 @@ describe('Campaigns', () => {
     const originalData = {
       name: `Original Test Campaign ${Date.now()}`,
       description: 'Original test description',
-      type: 'one_time',
+      type: 'one_time'
     };
 
- 
     campaignsPage.createNewCampaign(originalData);
     campaignsPage.verifySuccessMessage();
     campaignsPage.navigateToList();
@@ -53,7 +52,7 @@ describe('Campaigns', () => {
     const updatedData = {
       name: `Updated Test Campaign ${Date.now()}`,
       description: 'Updated test description',
-      type: 'repeatable',
+      type: 'repeatable'
     };
 
     campaignsPage.editCampaign(originalData.name, updatedData);

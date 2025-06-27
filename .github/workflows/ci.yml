@@ -35,8 +35,8 @@ jobs:
         CYPRESS_baseUrl: https://povio-at.herokuapp.com
         # For assignment demo - using test credentials
         # In production, these should be stored as GitHub secrets
-        CYPRESS_EMAIL: bujare@gmail.com
-        CYPRESS_PASSWORD: "12345678"
+        CYPRESS_TEST_USER_EMAIL: bujare@gmail.com
+        CYPRESS_TEST_USER_PASSWORD: "12345678"
         CYPRESS_TEST_USER_NAME: Test User
         CYPRESS_EXISTING_USER_EMAIL: bujare@gmail.com
         CYPRESS_EXISTING_USER_PASSWORD: "12345678"

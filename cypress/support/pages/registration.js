@@ -1,33 +1,33 @@
 export const registrationPage = {
   visit() {
     cy.visit('/users/sign_up');
-    cy.contains('Sign up', { timeout: 10000 }).should('be.visible');
+    cy.contains('Sign up').should('be.visible');
   },
 
   fillForm(userData) {
-    cy.get('input[name="user[name]"]', { timeout: 10000 })
+    cy.get('input[name="user[name]"]')
       .should('be.visible')
       .clear()
       .type(userData.name);
 
-    cy.get('input[name="user[email]"]', { timeout: 10000 })
+    cy.get('input[name="user[email]"]')
       .should('be.visible')
       .clear()
       .type(userData.email);
 
-    cy.get('input[name="user[password]"]', { timeout: 10000 })
+    cy.get('input[name="user[password]"]')
       .should('be.visible')
       .clear()
       .type(userData.password);
 
-    cy.get('input[name="user[password_confirmation]"]', { timeout: 10000 })
+    cy.get('input[name="user[password_confirmation]"]')
       .should('be.visible')
       .clear()
       .type(userData.passwordConfirmation);
   },
 
   submit() {
-    cy.get('input[type="submit"][value="Sign up"]', { timeout: 10000 })
+    cy.get('input[type="submit"][value="Sign up"]')
       .should('be.visible')
       .click();
   },
@@ -37,7 +37,7 @@ export const registrationPage = {
   },
 
   verifyRegistrationError(errorMessage) {
-    cy.get('body', { timeout: 10000 }).then(($body) => {
+    cy.get('body').then(($body) => {
       const normalizedText = $body.text().replace(/\s+/g, ' ').trim();
       const normalizedError = errorMessage.replace(/\s+/g, ' ').trim();
       expect(normalizedText).to.include(normalizedError);
@@ -45,7 +45,7 @@ export const registrationPage = {
   },
 
   goToLogin() {
-    cy.contains('Sign in', { timeout: 10000 }).click();
+    cy.contains('Sign in').click();
   },
 
   verifyFieldValidation(fieldName, expectedMessage) {
