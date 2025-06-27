@@ -3,57 +3,37 @@ import { TestDataHelper } from '../support/helpers/testDataHelper';
 
 describe('Registration', () => {
   before(() => {
-    TestDataHelper.validateEnvironmentVariables();
+    TestDataHelper.checkEnv();
   });
 
   it('should prevent registration with an existing email', () => {
     const existingUserData = TestDataHelper.getExistingUser();
-    const errorMessages = TestDataHelper.getErrorMessages();
+    const errorMessages = TestDataHelper.getErrors();
 
-    registrationPage.visit();
-    registrationPage.fillForm(existingUserData);
-    registrationPage.submit();
-
-    registrationPage.verifyRegistrationError(errorMessages.emailAlreadyTaken);
-    registrationPage.verifyStaysOnRegistrationPage();
+    registrationPage.attemptInvalidRegistration(existingUserData, errorMessages.emailAlreadyTaken);
   });
 
-  it('should prevent registration with mismatched passwords', () => {
-    const invalidUserData = TestDataHelper.getUserWithMismatchedPasswords();
-    const errorMessages = TestDataHelper.getErrorMessages();
+  it('should prevent registration when passwords do not match', () => {
+    const invalidUserData = TestDataHelper.getWrongPassUser();
+    const errorMessages = TestDataHelper.getErrors();
 
-    registrationPage.visit();
-    registrationPage.fillForm(invalidUserData);
-    registrationPage.submit();
-
-    registrationPage.verifyRegistrationError(errorMessages.passwordMismatch);
-    registrationPage.verifyStaysOnRegistrationPage();
+    registrationPage.verifyFormValidation(invalidUserData, errorMessages.passwordMismatch);
   });
 
   it('should prevent registration with invalid email format', () => {
-    const invalidUserData = TestDataHelper.getUserWithInvalidEmail();
+    const invalidUserData = TestDataHelper.getInvalidEmailUser();
 
-    registrationPage.visit();
-    registrationPage.fillForm(invalidUserData);
-    registrationPage.submit();
-
+    registrationPage.attemptRegistration(invalidUserData);
     registrationPage.verifyStaysOnRegistrationPage();
   });
 
   it('should prevent registration with empty required fields', () => {
-    registrationPage.visit();
-    registrationPage.submit();
-
-    registrationPage.verifyStaysOnRegistrationPage();
+    registrationPage.attemptEmptyFormSubmission();
   });
 
   it('should successfully register a new valid user', () => {
-    const newUserData = TestDataHelper.getValidNewUser();
+    const newUserData = TestDataHelper.getNewUser();
 
-    registrationPage.visit();
-    registrationPage.fillForm(newUserData);
-    registrationPage.submit();
-
-    registrationPage.verifySuccessfulRegistration();
+    registrationPage.registerNewUser(newUserData);
   });
 });

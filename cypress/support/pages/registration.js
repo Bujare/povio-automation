@@ -58,5 +58,36 @@ export const registrationPage = {
     cy.url().should('satisfy', (url) => {
       return url.includes('/users/sign_up') || url.includes('/users');
     });
+  },
+
+  attemptRegistration(userData) {
+    this.visit();
+    this.fillForm(userData);
+    this.submit();
+  },
+
+  registerNewUser(userData) {
+    this.attemptRegistration(userData);
+    this.verifySuccessfulRegistration();
+  },
+
+  attemptInvalidRegistration(userData, expectedError) {
+    this.attemptRegistration(userData);
+    this.verifyRegistrationError(expectedError);
+    this.verifyStaysOnRegistrationPage();
+  },
+
+  attemptEmptyFormSubmission() {
+    this.visit();
+    this.submit();
+    this.verifyStaysOnRegistrationPage();
+  },
+
+  verifyFormValidation(userData, expectedError) {
+    this.visit();
+    this.fillForm(userData);
+    this.submit();
+    this.verifyRegistrationError(expectedError);
+    this.verifyStaysOnRegistrationPage();
   }
 };

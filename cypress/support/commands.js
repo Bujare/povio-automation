@@ -1,25 +1,24 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', () => {
+  cy.session('authSession', () => {
+    cy.visit('/users/sign_in');
+
+    cy.get('input[name="user[email]"]', { timeout: 10000 }).should('be.visible').type(Cypress.env('EMAIL'));
+    cy.get('input[name="user[password]"]', { timeout: 10000 }).should('be.visible').type(Cypress.env('PASSWORD'));
+    cy.get('input[name="commit"]').should('be.visible').click();
+
+    cy.contains('Campaigns', { timeout: 10000 }).should('be.visible');
+  });
+});
+
+// Excel Reporter Commands
+Cypress.Commands.add('initExcelReporter', () => {
+  cy.task('initExcelReporter');
+});
+
+Cypress.Commands.add('addTestResult', (testData) => {
+  cy.task('addTestResult', testData);
+});
+
+Cypress.Commands.add('generateExcelReport', () => {
+  cy.task('generateExcelReport');
+});

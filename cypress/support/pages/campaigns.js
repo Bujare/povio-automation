@@ -75,11 +75,20 @@ export const campaignsPage = {
   },
 
   deleteCampaignByName(campaignName) {
-    cy.get('table tbody tr').contains(campaignName).parent('tr').within(() => {
-      cy.contains('Destroy').click();
+    cy.get('body').then(($body) => {
+      if ($body.find('table tbody tr').length > 0) {
+        cy.window().then((win) => {
+          cy.stub(win, 'confirm').as('confirmStub').returns(true);
+        });
+        
+        cy.get('table tbody tr').contains(campaignName).parent('tr').within(() => {
+          cy.contains('Destroy').click();
+        });
+        
+        cy.wait(2000);
+        cy.get('@confirmStub').should('have.been.called');
+      }
     });
-    
-    cy.wait(1000);
   },
 
   clickEditCampaignByName(campaignName) {
@@ -92,5 +101,25 @@ export const campaignsPage = {
         });
       });
     });
-  }
+  },
+
+  createNewCampaign(campaignData) {
+    this.clickAddNewCampaign();
+    this.fillForm(campaignData);
+    this.submitCreate();
+  },
+
+  editCampaign(originalName, updatedData) {
+    this.clickEditCampaignByName(originalName);
+    this.fillForm(updatedData);
+    this.submitUpdate();
+  },
+
+  verifySuccessMessage() {
+    cy.contains('Campaign was successfully created.').should('be.visible');
+  },
+
+  verifyUpdateMessage() {
+    cy.contains('Campaign was successfully updated', { timeout: 3000 }).should('be.visible');
+  },
 };
