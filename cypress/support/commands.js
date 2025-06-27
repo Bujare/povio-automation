@@ -10,7 +10,6 @@ Cypress.Commands.add('login', () => {
   });
 });
 
-// Excel Reporter Commands
 Cypress.Commands.add('initExcelReporter', () => {
   cy.task('initExcelReporter');
 });
