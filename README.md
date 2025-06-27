@@ -43,7 +43,11 @@ npm install
 ```
 
 **Step 3: Setup your test account**
+<<<<<<< HEAD
 Create a `.env` file in the project folder with EXACTLY these names:
+=======
+Create a `.env` file in the project folder:
+>>>>>>> 8a4f8341ce4f2b073b8e4a3a3aabfa9bf88f822e
 ```bash
 CYPRESS_baseUrl=https://povio-at.herokuapp.com
 CYPRESS_TEST_USER_EMAIL=bujare@gmail.com
@@ -58,8 +62,11 @@ CYPRESS_CAMPAIGN_NAME=Test Campaign
 CYPRESS_CAMPAIGN_DESCRIPTION=This is a test campaign for automation
 ```
 
+<<<<<<< HEAD
 **Important:** All variables MUST start with `CYPRESS_` prefix and match exactly as shown above.
 
+=======
+>>>>>>> 8a4f8341ce4f2b073b8e4a3a3aabfa9bf88f822e
 **How the credentials work:**
 - `CYPRESS_TEST_USER_EMAIL` & `CYPRESS_TEST_USER_PASSWORD` - For logging in to test campaigns
 - `CYPRESS_EXISTING_USER_EMAIL` - Used to test "email already exists" error
@@ -107,6 +114,7 @@ npx cypress run --browser chrome
 npx cypress run --browser firefox
 ```
 
+<<<<<<< HEAD
 ## Troubleshooting
 
 **If tests fail with "EMAIL is undefined":**
@@ -122,6 +130,8 @@ npx cypress run --browser firefox
 - GitHub Actions are pre-configured with working credentials
 - Check Actions tab for detailed error logs
 
+=======
+>>>>>>> 8a4f8341ce4f2b073b8e4a3a3aabfa9bf88f822e
 ## CI/CD Setup
 
 Tests run automatically on GitHub when you push code.
